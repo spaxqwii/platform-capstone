@@ -2,7 +2,6 @@
   "compilerOptions": {
     "ignoreDeprecations": "5.0",
     "target": "es5",
-    "moduleResolution": "node10",
     "lib": [
       "dom",
       "dom.iterable",
