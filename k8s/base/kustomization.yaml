@@ -4,7 +4,9 @@ kind: Kustomization
 resources:
   - redis.yaml
   - api.yaml
+  - api-alerts.yaml
   - worker.yaml
   - frontend.yaml
+  - servicemonitor-api.yaml
 
 namespace: default

@@ -1,0 +1,80 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: api-alerts
+  namespace: default
+  labels:
+    release: prometheus  # Must match your kube-prometheus-stack release name
+spec:
+  groups:
+  - name: api.rules
+    rules:
+    # Alert: API is down
+    - alert: APIDown
+      expr: up{job="api"} == 0
+      for: 1m
+      labels:
+        severity: critical
+      annotations:
+        summary: "API is down"
+        description: "API pod {{ $labels.pod }} has been down for more than 1 minute."
+
+    # Alert: High memory usage (>80% of 100MB)
+    - alert: APIHighMemoryUsage
+      expr: |
+        (
+          process_resident_memory_bytes{job="api"} / 
+          go_gc_gomemlimit_bytes{job="api"}
+        ) > 0.8
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "API high memory usage"
+        description: "API pod {{ $labels.pod }} memory usage is above 80%."
+
+    # Alert: High goroutine count (>1000)
+    - alert: APIHighGoroutines
+      expr: go_goroutines{job="api"} > 1000
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "API high goroutine count"
+        description: "API pod {{ $labels.pod }} has {{ $value }} goroutines."
+
+    # Alert: Scrape failures
+    - alert: APIScrapeFailing
+      expr: |
+        increase(promhttp_metric_handler_requests_total{job="api",code!="200"}[5m]) > 0
+      for: 1m
+      labels:
+        severity: warning
+      annotations:
+        summary: "API metrics scrape failing"
+        description: "API pod {{ $labels.pod }} is returning non-200 status codes."
+
+    # High error rate alert
+    - alert: APIHighErrorRate
+      expr: |
+        sum(rate(http_requests_total{job="api",status=~"5.."}[5m])) / 
+        sum(rate(http_requests_total{job="api"}[5m])) > 0.05
+      for: 2m
+      labels:
+        severity: critical
+      annotations:
+        summary: "API high error rate"
+        description: "Error rate is above 5%"
+
+    # High latency alert  
+    - alert: APIHighLatency
+      expr: |
+        histogram_quantile(0.95, 
+          rate(http_request_duration_seconds_bucket{job="api"}[5m])
+        ) > 0.5
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "API high latency"
+        description: "p95 latency > 500ms"
