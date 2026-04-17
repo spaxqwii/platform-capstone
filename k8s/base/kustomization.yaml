@@ -8,5 +8,6 @@ resources:
   - worker.yaml
   - frontend.yaml
   - servicemonitor-api.yaml
+  - grafana-dashboard-configmap.yaml
 
 namespace: default
