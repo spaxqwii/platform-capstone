@@ -2,7 +2,7 @@ apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
   name: api-alerts
-  namespace: default
+  namespace: monitoring
   labels:
     release: prometheus  # Must match your kube-prometheus-stack release name
 spec:
