@@ -4,22 +4,20 @@ metadata:
   name: api-alerts
   namespace: default
   labels:
-    release: prometheus  # Must match your kube-prometheus-stack release name
+    release: prometheus
 spec:
   groups:
   - name: api.rules
     rules:
-    # Alert: API is down
     - alert: APIDown
-      expr: up{job="api"} == 0
+      expr: kube_deployment_status_replicas_available{deployment="api",namespace="default"} == 0
       for: 1m
       labels:
         severity: critical
       annotations:
         summary: "API is down"
-        description: "API pod {{ $labels.pod }} has been down for more than 1 minute."
+        description: "API deployment has 0 available replicas."
 
-    # Alert: High memory usage (>80% of 100MB)
     - alert: APIHighMemoryUsage
       expr: |
         (
@@ -33,7 +31,6 @@ spec:
         summary: "API high memory usage"
         description: "API pod {{ $labels.pod }} memory usage is above 80%."
 
-    # Alert: High goroutine count (>1000)
     - alert: APIHighGoroutines
       expr: go_goroutines{job="api"} > 1000
       for: 5m
@@ -43,7 +40,6 @@ spec:
         summary: "API high goroutine count"
         description: "API pod {{ $labels.pod }} has {{ $value }} goroutines."
 
-    # Alert: Scrape failures
     - alert: APIScrapeFailing
       expr: |
         increase(promhttp_metric_handler_requests_total{job="api",code!="200"}[5m]) > 0
@@ -54,7 +50,6 @@ spec:
         summary: "API metrics scrape failing"
         description: "API pod {{ $labels.pod }} is returning non-200 status codes."
 
-    # High error rate alert
     - alert: APIHighErrorRate
       expr: |
         sum(rate(http_requests_total{job="api",status=~"5.."}[5m])) / 
@@ -66,7 +61,6 @@ spec:
         summary: "API high error rate"
         description: "Error rate is above 5%"
 
-    # High latency alert  
     - alert: APIHighLatency
       expr: |
         histogram_quantile(0.95, 
