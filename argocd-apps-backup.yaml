@@ -1,0 +1,467 @@
+apiVersion: v1
+items:
+- apiVersion: argoproj.io/v1alpha1
+  kind: Application
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"argoproj.io/v1alpha1","kind":"Application","metadata":{"annotations":{},"finalizers":["resources-finalizer.argocd.argoproj.io"],"name":"grafana-dashboard-api","namespace":"argocd"},"spec":{"destination":{"namespace":"monitoring","server":"https://kubernetes.default.svc"},"project":"default","source":{"path":"k8s/monitoring","repoURL":"https://github.com/spaxqwii/platform-capstone.git","targetRevision":"HEAD"},"syncPolicy":{"automated":{"prune":true,"selfHeal":true}}}}
+    creationTimestamp: "2026-04-17T12:35:50Z"
+    finalizers:
+    - resources-finalizer.argocd.argoproj.io
+    generation: 1863
+    name: grafana-dashboard-api
+    namespace: argocd
+    resourceVersion: "381207"
+    uid: a50d57b4-a54c-4833-a113-88735f1bb761
+  spec:
+    destination:
+      namespace: monitoring
+      server: https://kubernetes.default.svc
+    project: default
+    source:
+      path: k8s/monitoring
+      repoURL: https://github.com/spaxqwii/platform-capstone.git
+      targetRevision: HEAD
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+  status:
+    conditions:
+    - lastTransitionTime: "2026-04-21T08:27:26Z"
+      message: 'Failed to load target state: failed to generate manifest for source
+        1 of 1: rpc error: code = Unavailable desc = connection error: desc = "transport:
+        Error while dialing: dial tcp 10.43.134.46:8081: connect: connection refused"'
+      type: ComparisonError
+    controllerNamespace: argocd
+    health:
+      lastTransitionTime: "2026-04-20T10:43:26Z"
+      status: Healthy
+    history:
+    - deployStartedAt: "2026-04-17T12:35:51Z"
+      deployedAt: "2026-04-17T12:35:51Z"
+      id: 0
+      initiatedBy:
+        automated: true
+      revision: 1a28457aed0b3429daa1901a9a7dd4da2ce9aff4
+      source:
+        path: k8s/monitoring
+        repoURL: https://github.com/spaxqwii/platform-capstone.git
+        targetRevision: HEAD
+    - deployStartedAt: "2026-04-19T13:59:00Z"
+      deployedAt: "2026-04-19T13:59:01Z"
+      id: 1
+      initiatedBy:
+        automated: true
+      revision: 49a3026c7e32163aa3dbc418597b0e7597253d6c
+      source:
+        path: k8s/monitoring
+        repoURL: https://github.com/spaxqwii/platform-capstone.git
+        targetRevision: HEAD
+    operationState:
+      finishedAt: "2026-04-19T13:59:01Z"
+      message: successfully synced (all tasks run)
+      operation:
+        initiatedBy:
+          automated: true
+        retry:
+          limit: 5
+        sync:
+          prune: true
+          revision: 49a3026c7e32163aa3dbc418597b0e7597253d6c
+          source:
+            path: k8s/monitoring
+            repoURL: https://github.com/spaxqwii/platform-capstone.git
+            targetRevision: HEAD
+      phase: Succeeded
+      startedAt: "2026-04-19T13:59:00Z"
+      syncResult:
+        resources:
+        - group: ""
+          hookPhase: Running
+          kind: ConfigMap
+          message: configmap/grafana-dashboard-api configured
+          name: grafana-dashboard-api
+          namespace: monitoring
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        revision: 49a3026c7e32163aa3dbc418597b0e7597253d6c
+        source:
+          path: k8s/monitoring
+          repoURL: https://github.com/spaxqwii/platform-capstone.git
+          targetRevision: HEAD
+    reconciledAt: "2026-04-30T11:35:00Z"
+    resourceHealthSource: appTree
+    resources:
+    - kind: ConfigMap
+      name: grafana-dashboard-api
+      namespace: monitoring
+      requiresPruning: true
+      status: Unknown
+      version: v1
+    sourceHydrator: {}
+    summary: {}
+    sync:
+      comparedTo:
+        destination:
+          namespace: monitoring
+          server: https://kubernetes.default.svc
+        source:
+          path: k8s/monitoring
+          repoURL: https://github.com/spaxqwii/platform-capstone.git
+          targetRevision: HEAD
+      revision: HEAD
+      status: Unknown
+- apiVersion: argoproj.io/v1alpha1
+  kind: Application
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"argoproj.io/v1alpha1","kind":"Application","metadata":{"annotations":{},"name":"platform","namespace":"argocd"},"spec":{"destination":{"namespace":"default","server":"https://kubernetes.default.svc"},"project":"default","source":{"path":"k8s/base","repoURL":"https://github.com/spaxqwii/platform-capstone.git","targetRevision":"HEAD"},"syncPolicy":{"automated":{"prune":true,"selfHeal":true}}}}
+    creationTimestamp: "2026-04-10T12:17:03Z"
+    generation: 3302
+    name: platform
+    namespace: argocd
+    resourceVersion: "381181"
+    uid: 4293eb5b-8966-43bc-b480-8aa3f349db60
+  spec:
+    destination:
+      namespace: default
+      server: https://kubernetes.default.svc
+    project: default
+    source:
+      path: k8s/base
+      repoURL: https://github.com/spaxqwii/platform-capstone.git
+      targetRevision: HEAD
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+  status:
+    conditions:
+    - lastTransitionTime: "2026-04-21T08:27:58Z"
+      message: 'Failed to load target state: failed to generate manifest for source
+        1 of 1: rpc error: code = Unavailable desc = connection error: desc = "transport:
+        Error while dialing: dial tcp 10.43.134.46:8081: connect: connection refused"'
+      type: ComparisonError
+    controllerNamespace: argocd
+    health:
+      lastTransitionTime: "2026-04-24T11:48:24Z"
+      status: Healthy
+    history:
+    - deployStartedAt: "2026-04-10T12:17:11Z"
+      deployedAt: "2026-04-10T12:17:12Z"
+      id: 0
+      initiatedBy:
+        automated: true
+      revision: a7678506d4878b2dee344208f14ead159958437e
+      source:
+        path: k8s/base
+        repoURL: https://github.com/spaxqwii/platform-capstone.git
+        targetRevision: HEAD
+    - deployStartedAt: "2026-04-10T12:27:17Z"
+      deployedAt: "2026-04-10T12:27:18Z"
+      id: 1
+      initiatedBy:
+        automated: true
+      revision: 459f260660cd0dea8551d9b2e2ec37f89eeef94f
+      source:
+        path: k8s/base
+        repoURL: https://github.com/spaxqwii/platform-capstone.git
+        targetRevision: HEAD
+    - deployStartedAt: "2026-04-10T12:30:19Z"
+      deployedAt: "2026-04-10T12:30:20Z"
+      id: 2
+      initiatedBy:
+        automated: true
+      revision: 268ffb5aee62e7224c264162feed73aae8ccdd8e
+      source:
+        path: k8s/base
+        repoURL: https://github.com/spaxqwii/platform-capstone.git
+        targetRevision: HEAD
+    - deployStartedAt: "2026-04-16T11:32:54Z"
+      deployedAt: "2026-04-16T11:32:56Z"
+      id: 3
+      initiatedBy:
+        automated: true
+      revision: fb161d833c0f3b2f45bb96a17c59620a74c5d0b4
+      source:
+        path: k8s/base
+        repoURL: https://github.com/spaxqwii/platform-capstone.git
+        targetRevision: HEAD
+    - deployStartedAt: "2026-04-17T10:15:19Z"
+      deployedAt: "2026-04-17T10:15:20Z"
+      id: 4
+      initiatedBy:
+        automated: true
+      revision: 5b80df82ccef7d9f8034355be882560d350850e4
+      source:
+        path: k8s/base
+        repoURL: https://github.com/spaxqwii/platform-capstone.git
+        targetRevision: HEAD
+    - deployStartedAt: "2026-04-17T10:52:39Z"
+      deployedAt: "2026-04-17T10:52:39Z"
+      id: 5
+      initiatedBy:
+        automated: true
+      revision: 6f5fb1739c029739247a3292ecea393bc4250b74
+      source:
+        path: k8s/base
+        repoURL: https://github.com/spaxqwii/platform-capstone.git
+        targetRevision: HEAD
+    - deployStartedAt: "2026-04-17T11:00:56Z"
+      deployedAt: "2026-04-17T11:00:57Z"
+      id: 6
+      initiatedBy:
+        automated: true
+      revision: c06ae0da8042952c15a87ee22f854dfd78987953
+      source:
+        path: k8s/base
+        repoURL: https://github.com/spaxqwii/platform-capstone.git
+        targetRevision: HEAD
+    - deployStartedAt: "2026-04-17T11:03:46Z"
+      deployedAt: "2026-04-17T11:03:47Z"
+      id: 7
+      initiatedBy:
+        automated: true
+      revision: 454864bd02736dba4187f01c5d9b1726bebe4bb1
+      source:
+        path: k8s/base
+        repoURL: https://github.com/spaxqwii/platform-capstone.git
+        targetRevision: HEAD
+    - deployStartedAt: "2026-04-17T12:19:50Z"
+      deployedAt: "2026-04-17T12:19:51Z"
+      id: 8
+      initiatedBy:
+        username: admin
+      revision: 454864bd02736dba4187f01c5d9b1726bebe4bb1
+      source:
+        path: k8s/base
+        repoURL: https://github.com/spaxqwii/platform-capstone.git
+        targetRevision: HEAD
+    - deployStartedAt: "2026-04-17T12:26:10Z"
+      deployedAt: "2026-04-17T12:26:11Z"
+      id: 9
+      initiatedBy:
+        automated: true
+      revision: e33b5ac62880a34757cde145f9e5391b04a945c3
+      source:
+        path: k8s/base
+        repoURL: https://github.com/spaxqwii/platform-capstone.git
+        targetRevision: HEAD
+    operationState:
+      finishedAt: "2026-04-17T12:26:11Z"
+      message: successfully synced (all tasks run)
+      operation:
+        initiatedBy:
+          automated: true
+        retry:
+          limit: 5
+        sync:
+          prune: true
+          revision: e33b5ac62880a34757cde145f9e5391b04a945c3
+          source:
+            path: k8s/base
+            repoURL: https://github.com/spaxqwii/platform-capstone.git
+            targetRevision: HEAD
+      phase: Succeeded
+      startedAt: "2026-04-17T12:26:10Z"
+      syncResult:
+        resources:
+        - group: ""
+          hookPhase: Succeeded
+          kind: ConfigMap
+          message: pruned
+          name: grafana-dashboard-api
+          namespace: default
+          status: Pruned
+          syncPhase: Sync
+          version: v1
+        - group: ""
+          hookPhase: Running
+          kind: Service
+          message: service/frontend unchanged
+          name: frontend
+          namespace: default
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: ""
+          hookPhase: Running
+          kind: Service
+          message: service/api unchanged
+          name: api
+          namespace: default
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: ""
+          hookPhase: Running
+          kind: Service
+          message: service/redis unchanged
+          name: redis
+          namespace: default
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: ""
+          hookPhase: Running
+          kind: Service
+          message: service/worker unchanged
+          name: worker
+          namespace: default
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: apps
+          hookPhase: Running
+          images:
+          - frontend:latest
+          kind: Deployment
+          message: deployment.apps/frontend unchanged
+          name: frontend
+          namespace: default
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: apps
+          hookPhase: Running
+          images:
+          - worker:latest
+          kind: Deployment
+          message: deployment.apps/worker unchanged
+          name: worker
+          namespace: default
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: apps
+          hookPhase: Running
+          images:
+          - redis:7-alpine
+          kind: Deployment
+          message: deployment.apps/redis unchanged
+          name: redis
+          namespace: default
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: apps
+          hookPhase: Running
+          images:
+          - api:latest
+          kind: Deployment
+          message: deployment.apps/api unchanged
+          name: api
+          namespace: default
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: monitoring.coreos.com
+          hookPhase: Running
+          kind: PrometheusRule
+          message: prometheusrule.monitoring.coreos.com/api-alerts unchanged
+          name: api-alerts
+          namespace: default
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: monitoring.coreos.com
+          hookPhase: Running
+          kind: ServiceMonitor
+          message: servicemonitor.monitoring.coreos.com/api-metrics unchanged
+          name: api-metrics
+          namespace: default
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        revision: e33b5ac62880a34757cde145f9e5391b04a945c3
+        source:
+          path: k8s/base
+          repoURL: https://github.com/spaxqwii/platform-capstone.git
+          targetRevision: HEAD
+    reconciledAt: "2026-04-30T11:34:26Z"
+    resourceHealthSource: appTree
+    resources:
+    - kind: Service
+      name: api
+      namespace: default
+      requiresPruning: true
+      status: Unknown
+      version: v1
+    - kind: Service
+      name: frontend
+      namespace: default
+      requiresPruning: true
+      status: Unknown
+      version: v1
+    - kind: Service
+      name: redis
+      namespace: default
+      requiresPruning: true
+      status: Unknown
+      version: v1
+    - kind: Service
+      name: worker
+      namespace: default
+      requiresPruning: true
+      status: Unknown
+      version: v1
+    - group: apps
+      kind: Deployment
+      name: api
+      namespace: default
+      requiresPruning: true
+      status: Unknown
+      version: v1
+    - group: apps
+      kind: Deployment
+      name: frontend
+      namespace: default
+      requiresPruning: true
+      status: Unknown
+      version: v1
+    - group: apps
+      kind: Deployment
+      name: redis
+      namespace: default
+      requiresPruning: true
+      status: Unknown
+      version: v1
+    - group: apps
+      kind: Deployment
+      name: worker
+      namespace: default
+      requiresPruning: true
+      status: Unknown
+      version: v1
+    - group: monitoring.coreos.com
+      kind: ServiceMonitor
+      name: api-metrics
+      namespace: default
+      requiresPruning: true
+      status: Unknown
+      version: v1
+    sourceHydrator: {}
+    summary:
+      images:
+      - api:latest
+      - frontend:latest
+      - redis:7-alpine
+      - worker:latest
+    sync:
+      comparedTo:
+        destination:
+          namespace: default
+          server: https://kubernetes.default.svc
+        source:
+          path: k8s/base
+          repoURL: https://github.com/spaxqwii/platform-capstone.git
+          targetRevision: HEAD
+      revision: HEAD
+      status: Unknown
+kind: List
+metadata:
+  resourceVersion: ""

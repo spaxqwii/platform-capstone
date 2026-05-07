@@ -1,0 +1,44 @@
+apiVersion: v1
+items:
+- apiVersion: monitoring.coreos.com/v1alpha1
+  kind: AlertmanagerConfig
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"monitoring.coreos.com/v1alpha1","kind":"AlertmanagerConfig","metadata":{"annotations":{},"name":"slack-notifications","namespace":"monitoring"},"spec":{"receivers":[{"name":"slack","slackConfigs":[{"apiURL":{"key":"slack-webhook-url","name":"slack-webhook-url"},"channel":"#all-patronage","sendResolved":true,"text":"{{ range .Alerts }}\n*Status:* {{ .Status | toUpper }}\n*Alert:* {{ .Annotations.summary }}\n*Description:* {{ .Annotations.description }}\n*Severity:* {{ .Labels.severity }}\n{{ end }}\n","title":"Platform Alert: {{ .GroupLabels.alertname }}"}]}],"route":{"groupBy":["alertname","severity"],"groupInterval":"10s","groupWait":"10s","receiver":"slack","repeatInterval":"12h"}}}
+    creationTimestamp: "2026-04-22T10:05:13Z"
+    generation: 2
+    labels:
+      alertmanagerConfig: slack
+    name: slack-notifications
+    namespace: monitoring
+    resourceVersion: "242555"
+    uid: d35bcb6b-89ff-4d52-b2f3-9b364964e936
+  spec:
+    receivers:
+    - name: slack
+      slackConfigs:
+      - apiURL:
+          key: slack-webhook-url
+          name: slack-webhook-url
+        channel: '#all-patronage'
+        sendResolved: true
+        text: |
+          {{ range .Alerts }}
+          *Status:* {{ .Status | toUpper }}
+          *Alert:* {{ .Annotations.summary }}
+          *Description:* {{ .Annotations.description }}
+          *Severity:* {{ .Labels.severity }}
+          {{ end }}
+        title: 'Platform Alert: {{ .GroupLabels.alertname }}'
+    route:
+      groupBy:
+      - alertname
+      - severity
+      groupInterval: 10s
+      groupWait: 10s
+      receiver: slack
+      repeatInterval: 12h
+kind: List
+metadata:
+  resourceVersion: ""

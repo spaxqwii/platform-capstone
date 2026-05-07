@@ -1,0 +1,105 @@
+apiVersion: v1
+items:
+- apiVersion: monitoring.coreos.com/v1
+  kind: PrometheusRule
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"monitoring.coreos.com/v1","kind":"PrometheusRule","metadata":{"annotations":{},"labels":{"release":"prometheus"},"name":"api-alerts","namespace":"default"},"spec":{"groups":[{"name":"api.rules","rules":[{"alert":"APIDown","annotations":{"description":"API deployment has 0 available replicas.","summary":"API is down"},"expr":"kube_deployment_status_replicas_available{deployment=\"api\",namespace=\"default\"} == 0","for":"1m","labels":{"severity":"critical"}},{"alert":"APIHighMemoryUsage","annotations":{"description":"API pod {{ $labels.pod }} memory usage is above 80%.","summary":"API high memory usage"},"expr":"(\n  process_resident_memory_bytes{job=\"api\"} / \n  go_gc_gomemlimit_bytes{job=\"api\"}\n) \u003e 0.8\n","for":"5m","labels":{"severity":"warning"}},{"alert":"APIHighGoroutines","annotations":{"description":"API pod {{ $labels.pod }} has {{ $value }} goroutines.","summary":"API high goroutine count"},"expr":"go_goroutines{job=\"api\"} \u003e 1000","for":"5m","labels":{"severity":"warning"}},{"alert":"APIScrapeFailing","annotations":{"description":"API pod {{ $labels.pod }} is returning non-200 status codes.","summary":"API metrics scrape failing"},"expr":"increase(promhttp_metric_handler_requests_total{job=\"api\",code!=\"200\"}[5m]) \u003e 0\n","for":"1m","labels":{"severity":"warning"}},{"alert":"APIHighErrorRate","annotations":{"description":"Error rate is above 5%","summary":"API high error rate"},"expr":"sum(rate(http_requests_total{job=\"api\",status=~\"5..\"}[5m])) / \nsum(rate(http_requests_total{job=\"api\"}[5m])) \u003e 0.05\n","for":"2m","labels":{"severity":"critical"}},{"alert":"APIHighLatency","annotations":{"description":"p95 latency \u003e 500ms","summary":"API high latency"},"expr":"histogram_quantile(0.95, \n  rate(http_request_duration_seconds_bucket{job=\"api\"}[5m])\n) \u003e 0.5\n","for":"5m","labels":{"severity":"warning"}}]}]}}
+      prometheus-operator-validated: "true"
+    creationTimestamp: "2026-04-23T12:50:09Z"
+    generation: 2
+    labels:
+      release: prometheus
+    name: api-alerts
+    namespace: default
+    resourceVersion: "268763"
+    uid: 34cf1946-f6f8-4a8c-9966-a190ca2ed23e
+  spec:
+    groups:
+    - name: api.rules
+      rules:
+      - alert: APIDown
+        annotations:
+          description: API deployment has 0 available replicas.
+          summary: API is down
+        expr: kube_deployment_status_replicas_available{deployment="api",namespace="default"}
+          == 0
+        for: 1m
+        labels:
+          severity: critical
+      - alert: APIHighMemoryUsage
+        annotations:
+          description: API pod {{ $labels.pod }} memory usage is above 80%.
+          summary: API high memory usage
+        expr: "(\n  process_resident_memory_bytes{job=\"api\"} / \n  go_gc_gomemlimit_bytes{job=\"api\"}\n)
+          > 0.8\n"
+        for: 5m
+        labels:
+          severity: warning
+      - alert: APIHighGoroutines
+        annotations:
+          description: API pod {{ $labels.pod }} has {{ $value }} goroutines.
+          summary: API high goroutine count
+        expr: go_goroutines{job="api"} > 1000
+        for: 5m
+        labels:
+          severity: warning
+      - alert: APIScrapeFailing
+        annotations:
+          description: API pod {{ $labels.pod }} is returning non-200 status codes.
+          summary: API metrics scrape failing
+        expr: |
+          increase(promhttp_metric_handler_requests_total{job="api",code!="200"}[5m]) > 0
+        for: 1m
+        labels:
+          severity: warning
+      - alert: APIHighErrorRate
+        annotations:
+          description: Error rate is above 5%
+          summary: API high error rate
+        expr: "sum(rate(http_requests_total{job=\"api\",status=~\"5..\"}[5m])) / \nsum(rate(http_requests_total{job=\"api\"}[5m]))
+          > 0.05\n"
+        for: 2m
+        labels:
+          severity: critical
+      - alert: APIHighLatency
+        annotations:
+          description: p95 latency > 500ms
+          summary: API high latency
+        expr: "histogram_quantile(0.95, \n  rate(http_request_duration_seconds_bucket{job=\"api\"}[5m])\n)
+          > 0.5\n"
+        for: 5m
+        labels:
+          severity: warning
+- apiVersion: monitoring.coreos.com/v1
+  kind: PrometheusRule
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"monitoring.coreos.com/v1","kind":"PrometheusRule","metadata":{"annotations":{},"labels":{"release":"prometheus"},"name":"api-replicas-test","namespace":"default"},"spec":{"groups":[{"name":"api.replicas","rules":[{"alert":"APIReplicasMismatch","annotations":{"description":"API deployment has 0 available replicas","summary":"API has 0 replicas"},"expr":"kube_deployment_status_replicas_available{deployment=\"api\",namespace=\"default\"} == 0","for":"1m","labels":{"severity":"critical"}}]}]}}
+      prometheus-operator-validated: "true"
+    creationTimestamp: "2026-04-23T10:45:59Z"
+    generation: 1
+    labels:
+      release: prometheus
+    name: api-replicas-test
+    namespace: default
+    resourceVersion: "263643"
+    uid: 30fe5f3c-982d-49aa-9573-4b11c85f15e2
+  spec:
+    groups:
+    - name: api.replicas
+      rules:
+      - alert: APIReplicasMismatch
+        annotations:
+          description: API deployment has 0 available replicas
+          summary: API has 0 replicas
+        expr: kube_deployment_status_replicas_available{deployment="api",namespace="default"}
+          == 0
+        for: 1m
+        labels:
+          severity: critical
+kind: List
+metadata:
+  resourceVersion: ""
