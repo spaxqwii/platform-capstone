@@ -14,8 +14,8 @@ spec:
     spec:
       containers:
       - name: worker
-        image: worker:latest
-        imagePullPolicy: Never  # Use local image
+        image: ghcr.io/spaxqwii/platform-worker:latest
+        imagePullPolicy: Always 
         ports:
         - containerPort: 8080
         env:

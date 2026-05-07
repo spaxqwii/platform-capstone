@@ -14,8 +14,8 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: frontend:latest
-        imagePullPolicy: Never  # Use local image
+        image: ghcr.io/spaxqwii/platform-frontend:latest
+        imagePullPolicy: Always 
         ports:
         - containerPort: 80
 ---
